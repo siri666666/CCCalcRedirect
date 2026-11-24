@@ -1,0 +1,9 @@
+Package: com.siri666666.cccalcredirect
+Name: CCCalcRedirect
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Description: Redirect the Control Center Calculator button to any 3rd-party calculator app or URL scheme, keeping the native Apple glyph without CCSupport.
+Maintainer: siri666666
+Author: siri666666
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000) | ellekit, preferenceloader, com.opa334.altlist (>= 1.0.4)

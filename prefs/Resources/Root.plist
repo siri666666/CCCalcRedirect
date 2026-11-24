@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>items</key>
+    <array>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>总开关</string>
+            <key>footerText</key>
+            <string>开启后，点击控制中心原版计算器图标将直接跳转所选第三方计算器 App。保留系统原版图标、无需依赖 CCSupport，切换应用即时生效。</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>default</key>
+            <true/>
+            <key>defaults</key>
+            <string>com.siri666666.cccalcredirectprefs</string>
+            <key>key</key>
+            <string>enabled</string>
+            <key>label</key>
+            <string>启用重定向</string>
+            <key>PostNotification</key>
+            <string>com.siri666666.cccalcredirectprefs/saved</string>
+        </dict>
+
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>目标计算器</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSLinkListCell</string>
+            <key>detail</key>
+            <string>ATLApplicationListSelectionController</string>
+            <key>cellClass</key>
+            <string>ATLApplicationSelectionCell</string>
+            <key>defaults</key>
+            <string>com.siri666666.cccalcredirectprefs</string>
+            <key>key</key>
+            <string>targetBundleID</string>
+            <key>label</key>
+            <string>选择目标 App</string>
+            <key>sections</key>
+            <array>
+                <dict>
+                    <key>sectionType</key>
+                    <string>User</string>
+                </dict>
+                <dict>
+                    <key>sectionType</key>
+                    <string>System</string>
+                </dict>
+            </array>
+            <key>useSearchBar</key>
+            <true/>
+            <key>hideSearchBarWhileScrolling</key>
+            <false/>
+            <key>showIdentifiersAsSubtitle</key>
+            <true/>
+            <key>includeIdentifiersInSearch</key>
+            <true/>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>测试打开目标 App</string>
+            <key>action</key>
+            <string>testOpenTarget</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>恢复系统默认计算器</string>
+            <key>action</key>
+            <string>resetToDefault</string>
+        </dict>
+
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>高级选项</string>
+            <key>footerText</key>
+            <string>可选：填写自定义 URL Scheme（如 shortcuts://run-shortcut?name=...）将优先打开该链接；留空则打开上方所选 App。「接管长按菜单」改动后需点右上角 Respring 生效。</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSEditTextCell</string>
+            <key>default</key>
+            <string></string>
+            <key>defaults</key>
+            <string>com.siri666666.cccalcredirectprefs</string>
+            <key>key</key>
+            <string>customURLScheme</string>
+            <key>label</key>
+            <string>自定义 URL Scheme</string>
+            <key>placeholder</key>
+            <string>留空默认关闭，例如 solves://</string>
+            <key>noAutoCorrect</key>
+            <true/>
+            <key>PostNotification</key>
+            <string>com.siri666666.cccalcredirectprefs/saved</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>default</key>
+            <false/>
+            <key>defaults</key>
+            <string>com.siri666666.cccalcredirectprefs</string>
+            <key>key</key>
+            <string>replaceLongPress</string>
+            <key>label</key>
+            <string>接管长按菜单</string>
+            <key>PostNotification</key>
+            <string>com.siri666666.cccalcredirectprefs/saved</string>
+        </dict>
+
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>关于与开源</string>
+            <key>footerText</key>
+            <string>CCCalcRedirect v1.0.0 · MIT License · Native RootHide &amp; Rootless</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>GitHub 开源仓库</string>
+            <key>action</key>
+            <string>openGitHub</string>
+        </dict>
+    </array>
+    <key>title</key>
+    <string>控制中心计算器</string>
+</dict>
+</plist>

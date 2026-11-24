@@ -1,0 +1,72 @@
+name: Build & Release CCCalcRedirect
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-15
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [roothide, rootless]
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      THEOS: ${{ github.workspace }}/.build/toolchain
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout pinned Roothide-capable Theos
+        uses: actions/checkout@v4
+        with:
+          repository: roothide/theos
+          ref: 958fea4f779943505b15b93c88bb4db8d97b346d
+          submodules: recursive
+          path: .build/toolchain
+      - name: Checkout pinned patched SDK
+        uses: actions/checkout@v4
+        with:
+          repository: theos/sdks
+          ref: 0222fd5413cf4b9af096f37b4621afa2688572f7
+          path: .build/sdks
+          sparse-checkout: iPhoneOS16.5.sdk
+      - name: Prepare macOS packaging tools
+        run: |
+          brew install ldid dpkg xz
+          echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+      - name: Build ${{ matrix.target }} package
+        run: |
+          make package FINALPACKAGE=1 DEBUG=0 THEOS_PACKAGE_SCHEME=${{ matrix.target }} SYSROOT="${{ github.workspace }}/.build/sdks/iPhoneOS16.5.sdk"
+          mkdir -p output
+          deb_file=$(ls packages/*.deb | head -n 1)
+          cp "$deb_file" "output/com.siri666666.cccalcredirect_1.0.0_${{ matrix.target }}.deb"
+          ls -la output/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CCCalcRedirect-${{ matrix.target }}
+          path: output/*.deb
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: CCCalcRedirect-*
+          merge-multiple: true
+          path: output
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: CCCalcRedirect v1.0.0
+          files: output/*.deb
+          draft: false
+          prerelease: false
+          generate_release_notes: true

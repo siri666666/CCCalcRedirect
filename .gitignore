@@ -1,0 +1,7 @@
+.theos/
+.build/
+packages/
+output/
+*.deb
+.DS_Store
+prefs/.fw_ref/
